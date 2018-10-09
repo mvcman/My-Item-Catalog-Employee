@@ -2,7 +2,18 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
-<h1>All Companies </h1>
+
+	<div class="row divider blue">
+		<div class="col-md-12"></div>
+	</div>
+	<div class="row banner main">
+		<div class="col-md-1"></div>
+		<div class="col-md-11 padding-none">
+			<h1>All Companies </h1>
+		</div>
+	</div>
+
+
 <div class = 'flash'>
 		      {% with messages = get_flashed_messages() %}
       {% if messages %}
@@ -17,6 +28,7 @@
 
 </div>
 {% for c in company %}
+<a href = "{{url_for('showEmployee', company_id = c.id)}}">
   <div class = "row" >
   <div class="col-md-1"></div>
 
@@ -26,12 +38,13 @@
       	<img src="{{c.picture}}" width="100 px" height="100 px">
 			</div>
       <div class="media-body">
-    <h4 class="media-heading"> Name:- {{c.name}}</h4>
+    <h2 class="media-heading"> Name:- {{c.name}}</h2>
       </div>
 			</div>
 		</div>
 
   <div class="col-md-1"></div>
   </div>
+</a>
   {% endfor %}
 {% endblock %}

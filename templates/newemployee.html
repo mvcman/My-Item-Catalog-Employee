@@ -1,0 +1,46 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+	<div class="row divider green">
+		<div class="col-md-12"></div>
+	</div>
+
+	<div class="row banner menu">
+		<div class="col-md-11 col-md-offset-1 padding-none">
+			<h1>{{company.name}}:- Enter new Employee Details</h1>
+			</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6 col-md-offset-1 padding-top">
+			<form action="/company/{{company.id}}/menu/new/" method = "post" enctype="multipart/form-data">
+				<div class="form-group">
+
+					<label for="name">Employee Name:</label>
+					<input type ="text" maxlength="50" class="form-control" name="name" placeholder="Employee Full Name">
+
+					<label for="Date of birth">DOB:</label>
+					<input type ="text" maxlength="50" class="form-control" name="dob" placeholder="Date Of Birth">
+
+					<label for="Email Id">Email ID:</label>
+					<input type ="text" maxlength="50" class="form-control" name="email" placeholder="Email Id">
+
+					<label for="Address">Address:</label>
+					<textarea class="form-control" maxlength="250" rows="3" name="address" placeholder="Employees Address"></textarea>
+
+					<label for="Mobile Number">Mobile No:</label>
+					<input type ="text" maxlength="10" class="form-control" name="mob" placeholder="Mobile Number">
+
+					<label for="picture">Select Picture:</label><br>
+					<span class="btn btn-default btn-file">
+		        Browse <input type="file" name="image">
+		      </span><br><br>
+
+					<input type="submit" value="Add" class="btn btn-primary">
+
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}

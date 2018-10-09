@@ -351,6 +351,127 @@ def showEmployee(company_id):
         return render_template('employee.html', employee=employee, company=company, creator=creator)
 
 
+#Edit a Company
+@app.route('/company/<int:company_id>/edit/', methods=['GET', 'POST'])
+def editCompany(company_id):
+    editedCompany = session.query(
+        Company).filter_by(id=company_id).one()
+    session.commit()
+    if 'username' not in login_session:
+        return redirect('/login')
+    if editedCompany.user_id != login_session['user_id']:
+        return "<script>function myFunction() {alert('You are not authorized to edit this Company. Please create your own company in order to edit.');}</script><body onload='myFunction()'>"
+    if request.method == 'POST':
+        if request.form['name']:
+            editedCompany.name = request.form['name']
+            flash('Company name Successfully Edited %s' % editedCompany.name)
+            return redirect(url_for('showCompany'))
+    else:
+        return render_template('editCompany.html', company=editedCompany)
+
+
+# Delete a Company
+@app.route('/company/<int:company_id>/delete/', methods=['GET', 'POST'])
+def deleteCompany(company_id):
+    companyToDelete = session.query(
+        Company).filter_by(id=company_id).one()
+    session.commit()
+    if 'username' not in login_session:
+        return redirect('/login')
+    if companyToDelete.user_id != login_session['user_id']:
+        return "<script>function myFunction() {alert('You are not authorized to delete this company. Please create your own company in order to delete.');}</script><body onload='myFunction()'>"
+    if request.method == 'POST':
+        session.delete(companyToDelete)
+        flash('%s Successfully Deleted' % companyToDelete.name)
+        session.commit()
+        return redirect(url_for('showCompany', company_id=company_id))
+    else:
+        return render_template('deleteCompany.html', company=companyToDelete)
+
+
+#Add new Employee
+@app.route('/company/<int:company_id>/menu/new/', methods=['GET', 'POST'])
+def newEmployee(company_id):
+    if 'username' not in login_session:
+        return redirect('/login')
+    company = session.query(Company).filter_by(id=company_id).one()
+    session.commit()
+    if login_session['user_id'] != company.user_id:
+        return "<script>function myFunction() {alert('You are not authorized to add Employee to this Company. Please create your own Company in order to add Employee.');}</script><body onload='myFunction()'>"
+    if request.method == 'POST':
+        file = request.files['image']
+        f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+
+        # add your custom code to check that the uploaded file is a valid image and not a malicious file (out-of-scope for this post)
+        file.save(f)
+        company = session.query(Company).filter_by(id=company_id).one()
+        newEmployee = Employee(name=request.form['name'], dob=request.form['dob'], email=request.form[
+                        'email'], contact=request.form['mob'], address=request.form['address'], picture="/static/" + file.filename, company_id=company_id, user_id=company.user_id)
+        print(newEmployee)
+        session.add(newEmployee)
+        session.commit()
+        flash('New Employee %s Successfully Added' % (newEmployee.name))
+        return redirect(url_for('showEmployee', company_id=company_id))
+    else:
+        return render_template('newemployee.html', company=company)
+
+
+
+# Edit a Employee
+@app.route('/company/<int:company_id>/menu/<int:employee_id>/edit', methods=['GET', 'POST'])
+def editEmployee(company_id, employee_id):
+    if 'username' not in login_session:
+        return redirect('/login')
+    editedEmployee = session.query(Employee).filter_by(id=employee_id).one()
+    company = session.query(Company).filter_by(id=company_id).one()
+    session.commit()
+    if login_session['user_id'] != company.user_id:
+        return "<script>function myFunction() {alert('You are not authorized to edit Employees to this company. Please create your own company in order to edit employees.');}</script><body onload='myFunction()'>"
+    if request.method == 'POST':
+        file = request.files['image']
+        f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+
+        # add your custom code to check that the uploaded file is a valid image and not a malicious file (out-of-scope for this post)
+        file.save(f)
+        if request.form['name']:
+            editedEmployee.name = request.form['name']
+        if request.form['email']:
+            editedEmployee.email = request.form['email']
+        if request.form['dob']:
+            editedEmployee.dob = request.form['dob']
+        if request.form['address']:
+            editedEmployee.address = request.form['address']
+        if request.form['mob']:
+            editedEmployee.contact = request.form['mob']
+        if request.files['image']:
+            editedEmployee.picture = "/static/" + file.filename
+        session.add(editedEmployee)
+        session.commit()
+        flash('Employee Successfully Edited')
+        return redirect(url_for('showEmployee', company_id=company_id))
+    else:
+        return render_template('editemployee.html', company_id=company_id, employee_id=employee_id, employee=editedEmployee)
+
+
+# Delete a Employee
+@app.route('/company/<int:company_id>/menu/<int:employee_id>/delete', methods=['GET', 'POST'])
+def deleteEmployee(company_id, employee_id):
+    if 'username' not in login_session:
+        return redirect('/login')
+    company = session.query(Company).filter_by(id=company_id).one()
+    session.commit()
+    employeeToDelete = session.query(Employee).filter_by(id=employee_id).one()
+    session.commit()
+    if login_session['user_id'] != company.user_id:
+        return "<script>function myFunction() {alert('You are not authorized to delete Employee to this company. Please create your own company in order to delete Employees.');}</script><body onload='myFunction()'>"
+    if request.method == 'POST':
+        session.delete(employeeToDelete)
+        session.commit()
+        flash('Employee Successfully Deleted')
+        return redirect(url_for('showEmployee', company_id=company_id))
+    else:
+        return render_template('deleteemployee.html', employee=employeeToDelete)
+
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
