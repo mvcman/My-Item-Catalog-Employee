@@ -1,0 +1,25 @@
+
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<h1>All Users </h1>
+{% for u in user %}
+  <div class = "row" >
+  <div class="col-md-1"></div>
+
+  <div class="col-md-10 restaurant-list">
+		<div class="media">
+			<div class="media-left">
+      	<img src="{{u.picture}}" width="100 px" height="100 px">
+			</div>
+      <div class="media-body">
+    <h4 class="media-heading">User Name:-{{u.name}}</h4>
+				<p>{{u.email}}</p>
+      </div>
+			</div>
+		</div>
+
+  <div class="col-md-1"></div>
+  </div>
+  {% endfor %}
+{% endblock %}
