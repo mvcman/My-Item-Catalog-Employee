@@ -31,6 +31,7 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+
 @app.route('/login/')
 def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
@@ -118,6 +119,7 @@ def fbconnect():
     return output
 
 
+#fb disconnect function to disconnect from fb login
 @app.route('/fbdisconnect')
 def fbdisconnect():
     facebook_id = login_session['facebook_id']
@@ -129,6 +131,7 @@ def fbdisconnect():
     return "you have been logged out"
 
 
+#gconnect function to connect via google login
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
     # Validate state token
@@ -226,9 +229,10 @@ def gconnect():
     print "done!"
     return output
 
+
+
 # User Helper Functions
-
-
+#to create new user
 def createUser(login_session):
     newUser = User(name=login_session['username'], email=login_session[
                    'email'], picture=login_session['picture'])
@@ -237,11 +241,13 @@ def createUser(login_session):
     return user.id
 
 
+# To get user Information
 def getUserInfo(user_id):
     user = session.query(User).filter_by(id=user_id).one()
     return user
 
 
+#To get users information
 def getUserID(email):
     try:
         user = session.query(User).filter_by(email=email).one()
@@ -250,9 +256,11 @@ def getUserID(email):
     except:
         return None
 
+
 # DISCONNECT - Revoke a current user's token and reset their login_session
 
 
+#To disconnect from google login
 @app.route('/gdisconnect')
 def gdisconnect():
     # Only disconnect a connected user.
@@ -307,6 +315,13 @@ def showUsers():
     return render_template('myusers.html', user = user)
 
 
+#to show all users JSON file
+@app.route('/users/JSON')
+def showUsers():
+    user = session.query(User).all()
+    return jsonify(user=[u.serialize for u in user])
+
+
 #show all company names
 @app.route('/')
 @app.route('/company/')
@@ -317,11 +332,19 @@ def showCompany():
     else:
         return render_template('company.html', company=company)
 
+
 #JSON company objects
 @app.route('/company/JSON')
 def companyJSON():
     company = session.query(Company).all()
     return jsonify(company=[r.serialize for r in company ])
+
+
+#JSON employee objects
+@app.route('/employee/JSON')
+def companyJSON():
+    employee = session.query(Employee).all()
+    return jsonify(employee=[r.serialize for r in employee ])
 
 
 #To add new company
