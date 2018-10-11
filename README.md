@@ -1,11 +1,11 @@
-Company Catalog Project
-About project
+#Company Catalog Project
+##About project
 This application provides a list of Companies as well as provide a user registration and authentication system. Registered users will have the ability to add company, add, edit, and delete their own employees.
 
-Features
+##Features
 Proper authentication and authorisation check. Full CRUD support using SQLAlchemy and Flask. JSON endpoints. Implements oAuth using Google Sign-in API.
 
-Project Structure
+##Project Structure
 . ├── project.py:-Main file to run the project ├── client_secrets.json ├── fb_client_secrets.json ├── database_setup.py:-database file ├── add_employee.py ├── company.db ├── README.md ├── static | |__css | | |__styles.css │ └── img | |__blank_user.gif | |__top-banner.jpg └── templates ├── company.html ├── deleteCompany.html ├── deleteemployee.html ├── editCompany.html ├── editemployee.html ├── employee.html ├── login.html ├── main.html ├── header.html ├── newCompany.html └── newemployee.html |__publicCompany.html |__publicEmployee.html
 
 Steps to run this project
@@ -28,7 +28,7 @@ Alternately, you can use Github to fork and clone the repository https://github.
 8.Log into the VM with vagrant ssh
 
 
-#How to run this project
+How to run this project
 
 1.Download or Clone this repository to your local drive: https://github.com/mvcman/My-Item-Catalog-Employee
 
