@@ -317,7 +317,7 @@ def showUsers():
 
 #to show all users JSON file
 @app.route('/users/JSON')
-def showUsers():
+def showUsersJSON():
     user = session.query(User).all()
     return jsonify(user=[u.serialize for u in user])
 
@@ -342,7 +342,7 @@ def companyJSON():
 
 #JSON employee objects
 @app.route('/employee/JSON')
-def companyJSON():
+def employeeJSON():
     employee = session.query(Employee).all()
     return jsonify(employee=[r.serialize for r in employee ])
 
