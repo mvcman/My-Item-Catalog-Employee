@@ -30,33 +30,33 @@ Proper authentication and authorisation check. Full CRUD support using SQLAlchem
 
 ## How to run this project
 
-1.Download or Clone this repository to your local drive:
+>1.Download or Clone this repository to your local drive:
 https://github.com/mvcman/My-Item-Catalog-Employee
 
-2.Copy this My-Item-Catalog-Employee into the FSND_Virtual_Machine/vagrant directory.
+>2.Copy this My-Item-Catalog-Employee into the FSND_Virtual_Machine/vagrant directory.
 
-3.Open a terminal window from the FSND_Virtual_Machine/vagrant directory, or simply open a terminal window and cd into that directory.
+>3.Open a terminal window from the FSND_Virtual_Machine/vagrant directory, or simply open a terminal window and cd into that directory.
 
-4.Run vagrant ssh at the prompt to log in to the VM.
+>4.Run vagrant ssh at the prompt to log in to the VM.
 ```
 vagrant ssh
 ```
 
-5.cd into the vagrant subdirectory
+>5.cd into the vagrant subdirectory
 ```
 cd /vagrant
 ```
-6.cd into the clone directory
+>6.cd into the clone directory
 
-7.Run the following command to set up the database:
+>7.Run the following command to set up the database:
 ```
 python database_setup.py
 ```
-8.Run the following command to insert items into your database. If you don't run this, the application will not show any item
+>8.Run the following command to insert items into your database. If you don't run this, the application will not show any item
 ```
 python add_employee.py
 ```
-9.Run this application:
+>9.Run this application:
 ```
 python project.py
 ```
