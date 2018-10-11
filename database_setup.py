@@ -32,7 +32,7 @@ class Company(Base):
     picture = Column(String(250))
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
-
+    employee = relationship('Employee', cascade='all, delete-orphan')
     @property
     def serialize(self):
         """Return object data in easily serializeable format"""
