@@ -31,19 +31,23 @@ session.add(User2)
 session.commit()
 
 # Menu for UrbanBurger
-company1 = Company(user_id=1, name="Mahindra Motors", picture="/static/Mahindra-logo.png")
+company1 = Company(user_id=1, name="Mahindra Motors",\
+ picture="/static/Mahindra-logo.png")
 
 session.add(company1)
 session.commit()
 
-company2 = Company(user_id=1, name="Sweetlime ventures", picture="/static/sweetlime.png")
+company2 = Company(user_id=1, name="Sweetlime ventures", \
+picture="/static/sweetlime.png")
 
 session.add(company2)
 session.commit()
 
 
-employee1 = Employee(user_id=1, name="Mandar Waghe", dob="17/12/1994",
-                     email="waghemandar1712@gmail.com", contact="8007528271", address="Thane",\
+employee1 = Employee(user_id=1, name="Mandar Waghe", \
+                     dob="17/12/1994",\
+                     email="waghemandar1712@gmail.com", \
+                     contact="8007528271", address="Thane",\
                      picture="/static/mandar1.jpg"\
                      ,company=company1)
 
@@ -51,25 +55,26 @@ session.add(employee1)
 session.commit()
 
 
-employee2 = Employee(user_id=1, name="Vijay Nath", dob="02/02/1994",
-                     email="Vijaynath@gmail.com", contact="9856432312", address="Thane",\
+employee2 = Employee(user_id=1, name="Vijay Nath", dob="02/02/1994",\
+                     email="Vijaynath@gmail.com", contact="9856432312", \
+                     address="Thane",\
                      picture="/static/blank_user.gif"\
                      ,company=company1)
 
 session.add(employee2)
 session.commit()
 
-employee3 = Employee(user_id=1, name="Mandar Waghe", dob="17/12/1994",
-                     email="waghemandar1712@gmail.com", contact="8007528271", address="Thane",\
-                     picture="/static/mandar1.jpg"\
-                     ,company=company2)
+employee3 = Employee(user_id=1, name="Mandar Waghe", dob="17/12/1994",\
+                     email="waghemandar1712@gmail.com", contact="8007528271",\
+                      address="Thane",picture="/static/mandar1.jpg",\
+                       company=company2)
 
 session.add(employee3)
 session.commit()
 
-employee4 = Employee(user_id=1, name="akshata waghe", dob="02/02/1994",
-                     email="wagheakshu@gmail.com", contact="9856432312", address="Thane",\
-                     picture="/static/blank_user.gif"\
+employee4 = Employee(user_id=1, name="akshata waghe", dob="02/02/1994",\
+                     email="wagheakshu@gmail.com", contact="9856432312",\
+                      address="Thane",picture="/static/blank_user.gif"\
                      ,company=company2)
 
 session.add(employee4)
