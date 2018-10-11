@@ -27,12 +27,8 @@
 					<textarea class="form-control" maxlength="250" rows="3" name="address">{{employee.address}}</textarea>
 
 					<label for="Mobile Number">Mobile No:</label>
-					<input type ="text" maxlength="10" class="form-control" name="mob" value="{{employee.contact}}">
+					<input type ="text" maxlength="10" class="form-control" name="mob" value="{{employee.contact}}"><br>
 
-					<label for="picture">Select Picture:</label><br>
-					<span class="btn btn-default btn-file">
-		        Browse <input type="file" name="image" src="{{employee.picture}}">
-		      </span><br><br>
 
 					<button type="submit" class="btn btn-default" id="submit" type="submit">
 					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Save</button>

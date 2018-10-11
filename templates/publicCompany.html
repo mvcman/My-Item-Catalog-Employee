@@ -26,7 +26,7 @@
         {% endif %}
     {% endwith %}
 
-</div>
+</div><br>
 {% for c in company %}
 <a href = "{{url_for('showEmployee', company_id = c.id)}}">
   <div class = "row" >
@@ -35,10 +35,10 @@
   <div class="col-md-10 restaurant-list">
 		<div class="media">
 			<div class="media-left">
-      	<img src="{{c.picture}}" width="100 px" height="100 px">
+      	<img src="{{c.picture}}" class="img-circle" width="100 px" height="100 px">
 			</div>
       <div class="media-body">
-    <h2 class="media-heading"> Name:- {{c.name}}</h2>
+    <h2 class="media-heading">{{c.name}}</h2>
       </div>
 			</div>
 		</div>

@@ -21,12 +21,15 @@
 			<h1>Welcome to Login </h1>
 		</div>
 	</div><br>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-2">
 
 
 
 <!-- GOOGLE PLUS SIGN IN-->
 
-
+<h4><lable>Google Sign In:</lable></h4>
           <div id="signinButton">
           <span class="g-signin"
             data-scope="openid email"
@@ -39,7 +42,7 @@
           </span>
           </div>
 
-<div id="result"></div>
+
 
 <script>
 function signInCallback(authResult) {
@@ -71,12 +74,15 @@ function signInCallback(authResult) {
 
   }); } }
 </script>
-
+</div>
 
 
 <!--END GOOGLE PLUS SIGN IN -->
 
 <!--FACEBOOK SIGN IN -->
+<div class="clo-md-2">
+  <h4><lable>Facebook Sign In:</lable></h4>
+
 <script>
   window.fbAsyncInit = function() {
   FB.init({
@@ -139,6 +145,7 @@ function signInCallback(authResult) {
 
         </button>
 <!--END FACEBOOK SIGN IN -->
-
+</div>
+<div id="result"></div>
   </body>
 {% endblock %}

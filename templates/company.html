@@ -31,7 +31,7 @@
 	<div class="col-md-10 padding-none">
 	<a href="{{url_for('newCompany')}}">
 				<button class="btn btn-default" id="new-restaurant">
-					<span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>Add Company
+					<span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>Add Company
 				</button>
 			</a>
 		</div>
@@ -46,11 +46,11 @@
     <div class="media">
 
 			<div class="media-left">
-      	<img src="{{c.picture}}" width="100 px" height="100 px">
+      	<img src="{{c.picture}}" class="img-circle" width="100 px" height="100 px">
 			</div>
 
       <div class="media-body">
-				<h2 class="media-heading"> Name:- {{c.name}}</h2>
+		<h2 class="media-heading">{{c.name}}</h2>
       </div>
 
 			</div>

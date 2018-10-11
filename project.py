@@ -428,11 +428,6 @@ def editEmployee(company_id, employee_id):
     if login_session['user_id'] != company.user_id:
         return "<script>function myFunction() {alert('You are not authorized to edit Employees to this company. Please create your own company in order to edit employees.');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
-        file = request.files['image']
-        f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-
-        # add your custom code to check that the uploaded file is a valid image and not a malicious file (out-of-scope for this post)
-        file.save(f)
         if request.form['name']:
             editedEmployee.name = request.form['name']
         if request.form['email']:
@@ -443,8 +438,6 @@ def editEmployee(company_id, employee_id):
             editedEmployee.address = request.form['address']
         if request.form['mob']:
             editedEmployee.contact = request.form['mob']
-        if request.files['image']:
-            editedEmployee.picture = "/static/" + file.filename
         session.add(editedEmployee)
         session.commit()
         flash('Employee Successfully Edited')

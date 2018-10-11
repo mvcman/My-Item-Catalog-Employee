@@ -22,6 +22,12 @@ h3 {
 	color: #4A4A4A;
 	line-height: 23px;
 }
+
+h4{
+	font-size: 12px;
+	color: #4A4A4A;
+	line-height: 20px;
+}
  p {
  	font-family: "Helvetica Neue", Roboto, Helvetica, Arial, sans-serif;
  	font-size: 16px;
@@ -160,4 +166,8 @@ u }
 	list-style-type: none;
 	text-align: center;
 
+}
+
+body {
+	background-color: gray;
 }

@@ -2,6 +2,11 @@
 {% block content %}
 {% include "header.html" %}
 
+<style>
+.media-left img{
+	margin-top: 40px;
+}
+</style>
 
 	<div class="row banner menu">
 		<div class="col-md-11 col-md-offset-1 padding-none">
@@ -26,9 +31,9 @@
 				</div>
 
 	      <div class="media-body">
-					<h2 class="media-heading"><font color="Green">Name:- </font>{{e.name}}</h2><h4><font color="black">Email:-</font><font color="violet">{{e.email}}</font></h4>
-					<h4><font color="black">Address:-</font><font color="violet">{{e.address}}</violet></h4><h4><font color="black">Mobile No:-</font><font color="violet">{{e.contact}}</font></h4>
-					<h4><font color="black">Date of Birth:-</font><font color="violet">{{e.dob}}</font></h4>
+					<h2 class="media-heading"><font color="Green">Name:- </font>{{e.name}}</h2><h4 class="media-objects"><font color="black">Email:-</font><font color="violet">{{e.email}}</font></h4>
+					<h4 class="media-objects"><font color="black">Address:-</font><font color="violet">{{e.address}}</violet></h4><h4 class="media-objects"><font color="black">Mobile No:-</font><font color="violet">{{e.contact}}</font></h4>
+					<h4 class="media-objects"><font color="black">Date of Birth:-</font><font color="violet">{{e.dob}}</font></h4>
 				</div>
 
 				</div>

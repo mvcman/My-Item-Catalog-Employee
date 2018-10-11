@@ -2,6 +2,12 @@
 {% block content %}
 {% include "header.html" %}
 
+<style>
+.media-left img{
+	margin-top: 40px;
+}
+
+</style>
 
 <div class="row banner menu">
 	<div class="col-md-11 col-md-offset-1 padding-none">
@@ -42,12 +48,12 @@
 			</a>
 				<a href="{{url_for('newEmployee', company_id = company.id )}}">
 				<button class="btn btn-default" id="new-menu-item">
-					<span class="glyphicon glyphicon-glass" aria-hidden="true"></span>Add Employee
+					<span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>Add Employee
 				</button>
 			</a>
 			<a href="{{url_for('deleteCompany', company_id = company.id )}}">
 				<button class="btn btn-default" id="new-menu-item">
-					<span class="glyphicon glyphicon-glass" aria-hidden="true"></span>Delete Company
+					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Delete Company
 				</button>
 			</a>
 </div>
@@ -65,11 +71,11 @@
 			</div>
 
       <div class="media-body">
-				<h2 class="media-heading"><font color="Green">Name:- </font>{{e.name}}</h2><h4><font color="black">Email:-</font><font color="violet">{{e.email}}</font></h4>
-				<h4><font color="black">Address:-</font><font color="violet">{{e.address}}</violet></h4><h4><font color="black">Mobile No:-</font><font color="violet">{{e.contact}}</font></h4>
-				<h4><font color="black">Date of Birth:-</font><font color="violet">{{e.dob}}</font></h4>
-				<a href='{{url_for('editEmployee', company_id = company.id, employee_id=e.id ) }}'>Edit</a> |
-				<a href='{{url_for('deleteEmployee', company_id = company.id, employee_id=e.id ) }}'>Delete</a>
+				<h2 class="media-heading"><font color="Green">Name:- </font>{{e.name}}</h2><h4 class="media-objects"><font color="black">Email:-</font><font color="violet">{{e.email}}</font></h4>
+				<h4 class="media-objects"><font color="black">Address:-</font><font color="violet">{{e.address}}</font></h4><h4 class="media-objects"><font color="black">Mobile No:-</font><font color="violet">{{e.contact}}</font></h4>
+				<h4 class="media-objects"><font color="black">Date of Birth:-</font><font color="violet">{{e.dob}}</font></h4>
+				<h4 class="media-objects"><a href='{{url_for('editEmployee', company_id = company.id, employee_id=e.id ) }}'>Edit</a> |
+				<a href='{{url_for('deleteEmployee', company_id = company.id, employee_id=e.id ) }}'>Delete</a></h4>
 			</div>
 
 			</div>
