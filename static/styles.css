@@ -6,15 +6,15 @@
 h1 {
 	font-family: "Helvetica Neue Light", Roboto, Helvetica, Arial, sans-serif;
 	font-size: 50px;
-	color: #51453B;
+	color: #008080;
 	line-height: 60px;
 	font-weight: 300;
 }
 
 h2 {
-	font-size: 24px;
-	color: #42C3C9;
-	line-height: 29px;
+	font-size: 40px;
+	color: #008080;
+	line-height: 35px;
 }
 
 h3 {
@@ -22,11 +22,15 @@ h3 {
 	color: #4A4A4A;
 	line-height: 23px;
 }
-
+.heading-1 {
+	font-size: 30px;
+	color: #008080;
+	line-height: 25px
+}
 h4{
-	font-size: 12px;
-	color: #4A4A4A;
-	line-height: 20px;
+	font-size: 18px;
+	color: #008080;
+	line-height: 12px;
 }
  p {
  	font-family: "Helvetica Neue", Roboto, Helvetica, Arial, sans-serif;
@@ -46,6 +50,22 @@ h4{
  	font-size: 14px;
  	color: #0093B9;
  	line-height: 17px;
+ }
+
+ .media-body{
+
+	 border-left: 6px solid gray;
+   background-color: lightgrey;
+	 border-radius: 25px;
+ }
+
+ .media-heading {
+ margin-left: 20px;
+ margin-top: 30px;
+ }
+ .media-objects {
+ margin-left: 20px;
+ margin-bottom: 20px;
  }
 .padding-top {
 	padding-top: 30px;
@@ -99,7 +119,7 @@ h4{
 	height: 15px;
 }
 .divider.blue {
-	background-color: #42C3C9;
+	background-color: #008080;
 }
 .divider.green {
 	background-color: #9FB80A;
@@ -113,7 +133,7 @@ h4{
 }
 .banner.menu {
 	height: 150px;
-	background-color: #E1E17F;
+	background-color: #C0C0C0;
 }
 .banner.profile {
 	height: 150px;
@@ -168,6 +188,3 @@ u }
 
 }
 
-body {
-	background-color: gray;
-}

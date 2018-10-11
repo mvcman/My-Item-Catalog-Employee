@@ -21,6 +21,13 @@
 			<h1>Welcome to Login </h1>
 		</div>
 	</div><br>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+  <div id="result"></div>
+</div>
+<div class="col-md-2"></div>
+</div>
 <div class="row">
   <div class="col-md-1"></div>
   <div class="col-md-2">
@@ -29,7 +36,6 @@
 
 <!-- GOOGLE PLUS SIGN IN-->
 
-<h4><lable>Google Sign In:</lable></h4>
           <div id="signinButton">
           <span class="g-signin"
             data-scope="openid email"
@@ -50,7 +56,7 @@ function signInCallback(authResult) {
     // Hide the sign-in button now that the user is authorized
 
     $('#signinButton').attr('style', 'display: none');
-    // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main restaurants page
+  // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main restaurants page
     $.ajax({
       type: 'POST',
       url: '/gconnect?state={{STATE}}',
@@ -60,7 +66,7 @@ function signInCallback(authResult) {
       success: function(result) {
         // Handle or verify the server response if necessary.
         if (result) {
-          $('#result').html('<font color="Green"><h2>Login Successful!</h2></font></br>'+ result + '</br><font color="red">Redirecting...</font>')
+          $('#result').html('<h2><font color="Green">Login Successful!</font></h2>'+ result + '</br><font color="red">Redirecting...</font>')
          setTimeout(function() {
           window.location.href = "/company";
          }, 4000);
@@ -76,13 +82,11 @@ function signInCallback(authResult) {
 </script>
 </div>
 
-
 <!--END GOOGLE PLUS SIGN IN -->
 
-<!--FACEBOOK SIGN IN -->
-<div class="clo-md-2">
-  <h4><lable>Facebook Sign In:</lable></h4>
 
+<!--FACEBOOK SIGN IN -->
+<div class="col-md-2">
 <script>
   window.fbAsyncInit = function() {
   FB.init({
@@ -118,7 +122,7 @@ function signInCallback(authResult) {
       success: function(result) {
         // Handle or verify the server response if necessary.
         if (result) {
-          $('#result').html('<font color="Green"><h2>Login Successful!</h2></font></br>'+ result + '</br><font color="red">Redirecting...</font>')
+          $('#result').html('<h2><font color="Green">Login Successful!</font></h2>'+ result + '</br><font color="red">Redirecting...</font>')
          setTimeout(function() {
           window.location.href = "/company";
          }, 4000);
@@ -146,6 +150,7 @@ function signInCallback(authResult) {
         </button>
 <!--END FACEBOOK SIGN IN -->
 </div>
-<div id="result"></div>
+<div class="col-md-7"></div>
+</div>
   </body>
 {% endblock %}
