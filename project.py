@@ -32,7 +32,7 @@ UPLOAD_FOLDER = os.path.basename('static')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Connect to Database and create database session
-engine = create_engine('sqlite:///company.db',\
+engine = create_engine('sqlite:///company.db',
                        connect_args={'check_same_thread': False})
 Base.metadata.bind = engine
 
@@ -63,8 +63,9 @@ def fbconnect():
     app_secret = json.loads(
         open('fb_client_secrets.json', 'r').read())['web']['app_secret']
     url1 = 'https://graph.facebook.com/oauth/access_token?'\
-          + 'grant_type=fb_exchange_token&client_id=%s&client_secret=%s'\
-          + '&fb_exchange_token=%s'
+        + 'grant_type=fb_exchange_token&'\
+        + 'client_id=%s&client_secret=%s'\
+        + '&fb_exchange_token=%s'
     url = url1 % (app_id, app_secret, access_token)
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
@@ -83,8 +84,8 @@ def fbconnect():
     '''
     token = result.split(',')[0].split(':')[1].replace('"', '')
     url2 = 'https://graph.facebook.com/v2.8/me?access_token=%s&' \
-            + 'fields=name,id,email'
-    url = url2  % token
+        + 'fields=name,id,email'
+    url = url2 % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
     # print "url sent for API access:%s"% url
@@ -98,7 +99,7 @@ def fbconnect():
     login_session['access_token'] = token
     # Get user picture
     url3 = 'https://graph.facebook.com/v2.8/me/picture?access_token=%s&'\
-            + 'redirect=0&height=200&width=200'
+        + 'redirect=0&height=200&width=200'
     url = url3 % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
@@ -194,7 +195,7 @@ def gconnect():
     stored_gplus_id = login_session.get('gplus_id')
     if stored_access_token is not None and gplus_id == stored_gplus_id:
         response = make_response(json.dumps('Current user is\
-         already connected.'),200)
+         already connected.'), 200)
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -254,12 +255,9 @@ def getUserInfo(user_id):
 
 # To get users information
 def getUserID(email):
-    try:
         user = session.query(User).filter_by(email=email).one()
         session.commit()
         return user.id
-    except:
-        return None
 
 
 # DISCONNECT - Revoke a current user's token and reset their login_session
@@ -314,7 +312,7 @@ def disconnect():
 @app.route('/users/')
 def showUsers():
     user = session.query(User).all()
-    return render_template('myusers.html', user = user)
+    return render_template('myusers.html', user=user)
 
 
 # to show all users JSON file
@@ -352,8 +350,11 @@ def employeeJSON():
 # To show single JSON employee object
 @app.route('/employee/<int:employee_id>/JSON')
 def singleEmployeeJSON(employee_id):
-    employee = session.query(Employee).filter_by(id=employee_id).one()
-    return jsonify(employee.serialize)
+    employee = session.query(Employee).filter_by(id=employee_id).one_or_none()
+    if employee:
+        return jsonify(employee.serialize)
+    else:
+        return "No such a Employee"
 
 
 # To add new company
@@ -368,7 +369,7 @@ def newCompany():
         # valid image and not a malicious file (out-of-scope for this post)
         file.save(f)
         company = Company(
-            name=request.form['name'], user_id=login_session['user_id'],\
+            name=request.form['name'], user_id=login_session['user_id'],
             picture="/static/" + file.filename)
         session.add(company)
         flash('New company %s Successfully Created' % company.name)
@@ -386,27 +387,34 @@ def showEmployee(company_id):
     employee = session.query(Employee).filter_by(
         company_id=company_id).all()
     session.commit()
-    if 'username' not in login_session or creator.id!=login_session['user_id']:
-        return render_template('publicemployee.html', employee=employee, \
-        company=company, creator=creator)
+    if 'username' not in login_session or \
+            creator.id != login_session['user_id']:
+        return render_template('publicemployee.html',
+                               employee=employee,
+                               company=company,
+                               creator=creator)
     else:
-        return render_template('employee.html', employee=employee, \
-        company=company, creator=creator)
+        return render_template('employee.html',
+                               employee=employee,
+                               company=company,
+                               creator=creator)
 
 
 # Edit a Company
 @app.route('/company/<int:company_id>/edit/', methods=['GET', 'POST'])
 def editCompany(company_id):
+    editedCompany = session.query(
+        Company).filter_by(id=company_id).one()
+    session.commit()
     if 'username' not in login_session:
         return redirect('/login')
     if editedCompany.user_id != login_session['user_id']:
-        return "<script>function myFunction() {alert('You are not \
-        authorized to edit this Company. Please create your own company \
-        in order to edit.');}</script><body onload='myFunction()'>"
+        return flash("You are not authorised to edit this Company.Please \
+        create your own company in order to edit")
+        # "<script>function myFunction() {alert('You are not \
+        # authorized to edit this Company. Please create your own company \
+        # in order to edit.');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
-        editedCompany = session.query(
-            Company).filter_by(id=company_id).one()
-        session.commit()
         if request.form['name']:
             editedCompany.name = request.form['name']
             flash('Company name Successfully Edited %s' % editedCompany.name)
@@ -424,9 +432,11 @@ def deleteCompany(company_id):
     if 'username' not in login_session:
         return redirect('/login')
     if companyToDelete.user_id != login_session['user_id']:
-        return "<script>function myFunction() {alert('You are not authorized to\
-         delete this company. Please create your own company in \
-         order to delete.');}</script><body onload='myFunction()'>"
+        return flash("You are not authorised to delete this Company.Please \
+        create your own company in order to delete")
+        # "<script>function myFunction() {alert('You are not authorized to\
+        # delete this company. Please create your own company in \
+        # order to delete.');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         # directory="/home/mandar/Downloads/FSND-Virtual-Machine/vagrant/mandar/"\
         # + "My-Item-Catalog-Project"
@@ -449,9 +459,9 @@ def newEmployee(company_id):
     company = session.query(Company).filter_by(id=company_id).one()
     session.commit()
     if login_session['user_id'] != company.user_id:
-        return "<script>function myFunction() {alert('You are not authorized to\
-         add Employee to this Company. Please create your own Company in order\
-          to add Employee.');}</script><body onload='myFunction()'>"
+        return "<script>function myFunction() {alert('You are not authorized \
+         to add Employee to this Company. Please create your own Company in \
+         order to add Employee.');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         file = request.files['image']
         f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
@@ -459,11 +469,14 @@ def newEmployee(company_id):
         # image and not a malicious file (out-of-scope for this post)
         file.save(f)
         company = session.query(Company).filter_by(id=company_id).one()
-        newEmployee = Employee(name=request.form['name'],\
-         dob=request.form['dob'], email=request.form['email'],\
-          contact=request.form['mob'], address=request.form['address'],\
-           picture="/static/" + file.filename, company_id=company_id, \
-           user_id=company.user_id)
+        newEmployee = Employee(name=request.form['name'],
+                               dob=request.form['dob'],
+                               email=request.form['email'],
+                               contact=request.form['mob'],
+                               address=request.form['address'],
+                               picture="/static/" + file.filename,
+                               company_id=company_id,
+                               user_id=company.user_id)
         print(newEmployee)
         session.add(newEmployee)
         session.commit()
@@ -473,9 +486,8 @@ def newEmployee(company_id):
         return render_template('newemployee.html', company=company)
 
 
-
 # Edit a Employee
-@app.route('/company/<int:company_id>/menu/<int:employee_id>/edit',\
+@app.route('/company/<int:company_id>/menu/<int:employee_id>/edit',
            methods=['GET', 'POST'])
 def editEmployee(company_id, employee_id):
     if 'username' not in login_session:
@@ -503,12 +515,14 @@ def editEmployee(company_id, employee_id):
         flash('Employee Successfully Edited')
         return redirect(url_for('showEmployee', company_id=company_id))
     else:
-        return render_template('editemployee.html', company_id=company_id,\
-         employee_id=employee_id, employee=editedEmployee)
+        return render_template('editemployee.html',
+                               company_id=company_id,
+                               employee_id=employee_id,
+                               employee=editedEmployee)
 
 
 # Delete a Employee
-@app.route('/company/<int:company_id>/menu/<int:employee_id>/delete',\
+@app.route('/company/<int:company_id>/menu/<int:employee_id>/delete',
            methods=['GET', 'POST'])
 def deleteEmployee(company_id, employee_id):
     if 'username' not in login_session:
@@ -530,7 +544,8 @@ def deleteEmployee(company_id, employee_id):
         flash('Employee Successfully Deleted')
         return redirect(url_for('showEmployee', company_id=company_id))
     else:
-        return render_template('deleteemployee.html', employee=employeeToDelete)
+        return render_template('deleteemployee.html',
+                               employee=employeeToDelete)
 
 
 if __name__ == '__main__':

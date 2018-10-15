@@ -1,6 +1,7 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
+
 	<div class="row divider green">
 		<div class="col-md-12"></div>
 	</div>
@@ -12,12 +13,12 @@
 	<div class="row">
 		<div class="col-md-6 col-md-offset-1 padding-top">
 
-			<form action="/company/new" method="post" enctype="multipart/form-data" >
+			<form action="/company/new" method="post" enctype="multipart/form-data">
 				<label for="name">Name:</label>
 				<input type ="text" class="form-control" maxlength="100" name="name"><br><br>
 				<label for="picture">Select Picture:</label><br>
 				<span class="btn btn-default btn-file">
-	        Browse <input type="file" name="image">
+	        Browse <input name="image" type="file" value="static/blank_user.gif">
 	      </span><br><br>
 
 
