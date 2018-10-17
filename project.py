@@ -51,7 +51,7 @@ def showLogin():
 
 @app.route('/fbconnect', methods=['POST'])
 def fbconnect():
-    print("welcome")
+    print "welcome"
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
@@ -104,7 +104,7 @@ def fbconnect():
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
     data = json.loads(result)
-    print(data)
+    print data
 
     login_session['picture'] = data["data"]["url"]
     # see if user exists
@@ -144,7 +144,7 @@ def fbdisconnect():
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
     # Validate state token
-    print("welcome")
+    print "welcome"
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
@@ -202,15 +202,15 @@ def gconnect():
     # Store the access token in the session for later use.
     login_session['access_token'] = credentials.access_token
     login_session['gplus_id'] = gplus_id
-    print(login_session['access_token'])
-    print(login_session['gplus_id'])
+    print login_session['access_token']
+    print login_session['gplus_id']
 
     # Get user info
     userinfo_url = "https://www.googleapis.com/oauth2/v1/userinfo"
     params = {'access_token': credentials.access_token, 'alt': 'json'}
     answer = requests.get(userinfo_url, params=params)
     data = answer.json()
-    print(data)
+    print data
 
     name = data['email'].split("@")
     login_session['username'] = name[0]
@@ -240,8 +240,9 @@ def gconnect():
 # User Helper Functions
 # to create new user
 def createUser(login_session):
-    newUser = User(name=login_session['username'], email=login_session[
-                   'email'], picture=login_session['picture'])
+    newUser = User(name=login_session['username'],
+                   email=login_session['email'],
+                   picture=login_session['picture'])
     session.add(newUser)
     user = session.query(User).filter_by(email=login_session['email']).one()
     return user.id
@@ -255,9 +256,9 @@ def getUserInfo(user_id):
 
 # To get users information
 def getUserID(email):
-        user = session.query(User).filter_by(email=email).one()
-        session.commit()
-        return user.id
+    user = session.query(User).filter_by(email=email).one()
+    session.commit()
+    return user.id
 
 
 # DISCONNECT - Revoke a current user's token and reset their login_session
@@ -483,7 +484,7 @@ def newEmployee(company_id):
                                    picture="/static/" + file.filename,
                                    company_id=company_id,
                                    user_id=company.user_id)
-            print(newEmployee)
+            print newEmployee
             session.add(newEmployee)
             session.commit()
             flash('New Employee %s Successfully Added' % (newEmployee.name))
