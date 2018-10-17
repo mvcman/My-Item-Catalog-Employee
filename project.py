@@ -256,9 +256,12 @@ def getUserInfo(user_id):
 
 # To get users information
 def getUserID(email):
-    user = session.query(User).filter_by(email=email).one()
-    session.commit()
-    return user.id
+    try:
+        user = session.query(User).filter_by(email=email).one()
+        session.commit()
+        return user.id
+    except:
+        return None
 
 
 # DISCONNECT - Revoke a current user's token and reset their login_session
