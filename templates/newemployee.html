@@ -24,7 +24,7 @@ function validateForm() {
         return false;
  }
  if (document.forms["myForm"]["image"].value == "") {
-        alert("Image must be filled out");
+        alert("Please Select a image!");
         return false;
  }
 }
@@ -48,16 +48,16 @@ function validateForm() {
 					<input type ="text" maxlength="50" class="form-control" name="name" placeholder="Employee Full Name">
 
 					<label for="Date of birth">DOB:</label>
-					<input type ="text" maxlength="50" class="form-control" name="dob" placeholder="Date Of Birth">
+					<input type ="text" pattern="\d{1,2}/\d{1,2}/\d{4}" maxlength="10" class="form-control" name="dob" placeholder="Date Of Birth">
 
 					<label for="Email Id">Email ID:</label>
-					<input type ="text" maxlength="50" class="form-control" name="email" placeholder="Email Id">
+					<input type ="email" maxlength="20" class="form-control" name="email" placeholder="Email Id">
 
 					<label for="Address">Address:</label>
 					<textarea class="form-control" maxlength="250" rows="3" name="address" placeholder="Employees Address"></textarea>
 
 					<label for="Mobile Number">Mobile No:</label>
-					<input type ="text" maxlength="10" class="form-control" name="mob" placeholder="Mobile Number">
+					<input type="text" pattern="[789][0-9]{9}" class="form-control" name="mob" placeholder="Mobile Number">
 
 					<label for="picture">Select Picture:</label><br>
 					<span class="btn btn-default btn-file">
