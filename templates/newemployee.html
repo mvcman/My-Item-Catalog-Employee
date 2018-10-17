@@ -8,7 +8,7 @@ function validateForm() {
         return false;
  }
  if (document.forms["myForm"]["dob"].value == "") {
-        alert("date of birth must be filled out");
+        alert("Date of birth must be filled out");
         return false;
  }
  if (document.forms["myForm"]["email"].value == "") {
@@ -51,7 +51,7 @@ function validateForm() {
 					<input type ="text" pattern="\d{1,2}/\d{1,2}/\d{4}" maxlength="10" class="form-control" name="dob" placeholder="Date Of Birth">
 
 					<label for="Email Id">Email ID:</label>
-					<input type ="email" maxlength="20" class="form-control" name="email" placeholder="Email Id">
+					<input type ="email" maxlength="50" class="form-control" name="email" placeholder="Email Id">
 
 					<label for="Address">Address:</label>
 					<textarea class="form-control" maxlength="250" rows="3" name="address" placeholder="Employees Address"></textarea>

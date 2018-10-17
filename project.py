@@ -364,15 +364,18 @@ def newCompany():
         return redirect('/login')
     if request.method == 'POST':
         file = request.files['image']
-        f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-        # add your custom code to check that the uploaded file is a \
-        # valid image and not a malicious file (out-of-scope for this post)
-        file.save(f)
-        company = Company(
-            name=request.form['name'], user_id=login_session['user_id'],
-            picture="/static/" + file.filename)
-        session.add(company)
-        flash('New company %s Successfully Created' % company.name)
+        if os.path.exists("static/" + file.filename):
+            return "File already exist rename the file/select another image!"
+        else:
+            f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            # add your custom code to check that the uploaded file is a \
+            # valid image and not a malicious file (out-of-scope for this post)
+            file.save(f)
+            company = Company(
+                name=request.form['name'], user_id=login_session['user_id'],
+                picture="/static/" + file.filename)
+            session.add(company)
+            flash('New company %s Successfully Created' % company.name)
         return redirect(url_for('showCompany'))
     else:
         return render_template('newCompany.html')
@@ -464,23 +467,26 @@ def newEmployee(company_id):
          order to add Employee.');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         file = request.files['image']
-        f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-        # add your custom code to check that the uploaded file is a valid \
-        # image and not a malicious file (out-of-scope for this post)
-        file.save(f)
-        company = session.query(Company).filter_by(id=company_id).one()
-        newEmployee = Employee(name=request.form['name'],
-                               dob=request.form['dob'],
-                               email=request.form['email'],
-                               contact=request.form['mob'],
-                               address=request.form['address'],
-                               picture="/static/" + file.filename,
-                               company_id=company_id,
-                               user_id=company.user_id)
-        print(newEmployee)
-        session.add(newEmployee)
-        session.commit()
-        flash('New Employee %s Successfully Added' % (newEmployee.name))
+        if os.path.exists("static/" + file.filename):
+            return "File already exist rename the file/select another image!"
+        else:
+            f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            # add your custom code to check that the uploaded file is a valid \
+            # image and not a malicious file (out-of-scope for this post)
+            file.save(f)
+            company = session.query(Company).filter_by(id=company_id).one()
+            newEmployee = Employee(name=request.form['name'],
+                                   dob=request.form['dob'],
+                                   email=request.form['email'],
+                                   contact=request.form['mob'],
+                                   address=request.form['address'],
+                                   picture="/static/" + file.filename,
+                                   company_id=company_id,
+                                   user_id=company.user_id)
+            print(newEmployee)
+            session.add(newEmployee)
+            session.commit()
+            flash('New Employee %s Successfully Added' % (newEmployee.name))
         return redirect(url_for('showEmployee', company_id=company_id))
     else:
         return render_template('newemployee.html', company=company)
